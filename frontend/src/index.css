@@ -38,3 +38,7 @@ nav button {
   border: none;
   cursor: pointer;
 }
+
+.register {
+  padding: 50px;
+}
