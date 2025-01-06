@@ -6,8 +6,11 @@ import LoginPage from "../pages/registration/LoginPage";
 import RegisterPage from "../pages/registration/RegisterPage";
 import RegisterValidationPage from "../pages/registration/RegisterValidationPage";
 import Layout from "../components/Layout";
+import useTokenVerification from "../hooks/useTokenVerification";
 
 const Router = () => {
+  useTokenVerification();
+
   return (
     <>
       <Routes>
@@ -19,7 +22,7 @@ const Router = () => {
             element={<RegisterValidationPage />}
           />
           <Route path="/login" element={<LoginPage />} />
-          
+
           {/* Public routes */}
           <Route path="/" element={<HomePage />} />
           <Route path="*" element={<NotFound />} />
