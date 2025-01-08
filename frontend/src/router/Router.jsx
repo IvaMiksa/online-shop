@@ -7,6 +7,7 @@ import RegisterPage from "../pages/registration/RegisterPage";
 import RegisterValidationPage from "../pages/registration/RegisterValidationPage";
 import Layout from "../components/Layout";
 import useTokenVerification from "../hooks/useTokenVerification";
+import Shop from "../pages/public/Shop";
 
 const Router = () => {
   useTokenVerification();
@@ -26,6 +27,7 @@ const Router = () => {
           {/* Public routes */}
           <Route path="/" element={<HomePage />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/shop" element={<Shop />} />
 
           {/* Protected routes */}
           <Route element={<Protector />}></Route>
