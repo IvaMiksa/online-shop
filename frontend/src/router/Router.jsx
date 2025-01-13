@@ -8,6 +8,7 @@ import RegisterValidationPage from "../pages/registration/RegisterValidationPage
 import Layout from "../components/Layout";
 import useTokenVerification from "../hooks/useTokenVerification";
 import Shop from "../pages/public/Shop";
+import Cart from "../pages/public/Cart";
 
 const Router = () => {
   useTokenVerification();
@@ -28,6 +29,7 @@ const Router = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/shop" element={<Shop />} />
+          <Route path="/cart" element={<Cart />} />
 
           {/* Protected routes */}
           <Route element={<Protector />}></Route>
