@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts } from "../../store/productSlice";
+import { getProducts, addProductToCart } from "../../store/productSlice";
 import { useEffect } from "react";
 
 const Shop = () => {
@@ -27,6 +27,11 @@ const Shop = () => {
     fetchProducts();
   }, [dispatch]);
 
+   // Adding product to cart
+   const handleAddToCart = (product) => {
+     dispatch(addProductToCart(product));
+   };
+
   return (
     <div>
       {products && products.length > 0
@@ -36,7 +41,7 @@ const Shop = () => {
               <div>{product.title}</div>
               <div>
                 <div>{product.price.toFixed(2)} CHF</div>
-                <button>Add to cart</button>
+                <button onClick={() => handleAddToCart(product)}>Add to cart</button>
               </div>
             </div>
           ))
