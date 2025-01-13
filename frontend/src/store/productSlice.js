@@ -4,14 +4,27 @@ export const productSlice = createSlice({
   name: "product",
   initialState: {
     products: [],
+    cart:[],
   },
   reducers: {
     getProducts: (state, action) => {
       state.products = action.payload;
     },
+    addProductToCart: (state, action) => {
+      const newProduct = action.payload;
+      const index = state.cart.findIndex((item) => item.id === newProduct.id);
+
+      // If product not in cart => add it
+      if (index === -1) {
+        state.cart = [newProduct, ...state.cart];
+      } else {
+        // If product already in cart => increment its amount by 1
+        state.cart[index].amount++;
+      }
+    },
   },
 });
 
-export const { getProducts } = productSlice.actions;
+export const { getProducts, addProductToCart } = productSlice.actions;
 
 export default productSlice.reducer;
