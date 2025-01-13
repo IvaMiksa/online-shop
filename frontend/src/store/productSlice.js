@@ -26,10 +26,22 @@ export const productSlice = createSlice({
       const id = action.payload;
       state.cart = state.cart.filter((product) => product.id !== id);
     },
+    increaseAmount: (state, action) => {
+      const id = action.payload;
+      //console.log(id);
+      const index = state.cart.findIndex((item) => item.id === id);
+      console.log(index);
+      state.cart[index].amount++;
+    },
+    decreaseAmount: (state, action) => {
+      const id = action.payload;
+      const index = state.cart.findIndex((item) => item.id === id);
+      state.cart[index].amount--;
+    },
   },
 });
 
-export const { getProducts, addProductToCart, removeProductFromCart } =
+export const { getProducts, addProductToCart, removeProductFromCart, increaseAmount, decreaseAmount } =
   productSlice.actions;
 
 export default productSlice.reducer;
