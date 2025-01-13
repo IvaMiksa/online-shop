@@ -1,7 +1,7 @@
-const CartItem = ({ item }) => {
+const CartItem = ({ item, handleRemoveItem }) => {
   return (
     <div>
-      <button>X</button>
+      <button onClick={() => handleRemoveItem(item.id)}>X</button>
       <div>{item.title}</div>
       <button>-</button>
       <div>{item.amount}</div>
