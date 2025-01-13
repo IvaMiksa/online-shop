@@ -1,14 +1,32 @@
 import { useSelector, useDispatch } from "react-redux";
 import CartItem from "../../components/CartItem";
-import { removeProductFromCart } from "../../store/productSlice";
+import {
+  decreaseAmount,
+  increaseAmount,
+  removeProductFromCart,
+} from "../../store/productSlice";
 
 const Cart = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.product.cart);
-  
+
   // Removing products from cart
   const handleRemoveItem = (id) => {
     dispatch(removeProductFromCart(id));
+  };
+
+  // Increasing amount
+  const handleIncreaseAmount = (id) => {
+    dispatch(increaseAmount(id));
+  };
+
+  // Decrease amount (qty < 1 covered)
+  const handleDecreaseAmount = (item) => {
+    if (item.amount === 1) {
+      dispatch(removeProductFromCart(item.id));
+    } else {
+      dispatch(decreaseAmount(item.id));
+    }
   };
 
   return (
@@ -22,6 +40,8 @@ const Cart = () => {
             amount={item.amount}
             id={item.id}
             handleRemoveItem={handleRemoveItem}
+            handleIncreaseAmount={handleIncreaseAmount}
+            handleDecreaseAmount={handleDecreaseAmount}
           />
         ))}
       </div>
