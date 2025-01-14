@@ -1,14 +1,17 @@
 import { useSelector, useDispatch } from "react-redux";
 import CartItem from "../../components/CartItem";
 import {
+  calculateTotalPrice,
   decreaseAmount,
   increaseAmount,
   removeProductFromCart,
 } from "../../store/productSlice";
+import { useEffect } from "react";
 
 const Cart = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.product.cart);
+  const totalPrice = useSelector((store) => store.product.totalPrice);
 
   // Removing products from cart
   const handleRemoveItem = (id) => {
@@ -29,6 +32,11 @@ const Cart = () => {
     }
   };
 
+  // Calculate total price 
+  useEffect(() => {
+    dispatch(calculateTotalPrice());
+  }, [cartItems]);
+
   return (
     <div className="cart">
       <div>
@@ -44,7 +52,7 @@ const Cart = () => {
           />
         ))}
       </div>
-      <div className="total">Total:CHF</div>
+      <div className="total">Total: {totalPrice.toFixed(2)} CHF</div>
     </div>
   );
 };
