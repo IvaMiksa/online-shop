@@ -16,9 +16,9 @@ const Header = () => {
         <NavLink to="/">HOME</NavLink>
         <NavLink to="/shop">SHOP</NavLink>
         <NavLink to="/cart">CART</NavLink>
-        <div>
+        {/*<div>
           <FaCartShopping size={30} />
-        </div>
+        </div>*/}
 
         {!isAuthenticated && <NavLink to="/login">LOGIN</NavLink>}
         {isAuthenticated && <button onClick={handleLogout}>LOGOUT</button>}

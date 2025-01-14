@@ -31,7 +31,6 @@ const Cart = () => {
 
   return (
     <div className="cart">
-      <h1>Cart</h1>
       <div>
         {cartItems.map((item) => (
           <CartItem
@@ -45,7 +44,7 @@ const Cart = () => {
           />
         ))}
       </div>
-      <div>Total:CHF</div>
+      <div className="total">Total:CHF</div>
     </div>
   );
 };
