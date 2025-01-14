@@ -5,6 +5,7 @@ export const productSlice = createSlice({
   initialState: {
     products: [],
     cart: [],
+    totalPrice: 0,
   },
   reducers: {
     getProducts: (state, action) => {
@@ -38,10 +39,18 @@ export const productSlice = createSlice({
       const index = state.cart.findIndex((item) => item.id === id);
       state.cart[index].amount--;
     },
+    calculateTotalPrice: (state) => {
+      state.totalPrice = state.cart.reduce((totalPrice, currentItem) => {
+        const { price, amount } = currentItem;
+        const totalItemPrice = price * amount;
+        totalPrice += totalItemPrice;
+        return totalPrice;
+      }, 0);
+    },
   },
 });
 
-export const { getProducts, addProductToCart, removeProductFromCart, increaseAmount, decreaseAmount } =
+export const { getProducts, addProductToCart, removeProductFromCart, increaseAmount, decreaseAmount, calculateTotalPrice } =
   productSlice.actions;
 
 export default productSlice.reducer;
