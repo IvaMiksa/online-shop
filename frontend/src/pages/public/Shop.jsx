@@ -33,13 +33,13 @@ const Shop = () => {
    };
 
   return (
-    <div>
+    <div className="grid">
       {products && products.length > 0
         ? products.map((product) => (
-            <div key={product.id}>
+            <div className="product" key={product.id}>
               <img src={product.images[0]} alt="" width={80} height={80} />
               <div>{product.title}</div>
-              <div>
+              <div className="product-info-wrapper">
                 <div>{product.price.toFixed(2)} CHF</div>
                 <button onClick={() => handleAddToCart(product)}>Add to cart</button>
               </div>

@@ -42,3 +42,130 @@ nav button {
 .register {
   padding: 50px;
 }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 10px;
+}
+
+.product {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  background-color: antiquewhite;
+}
+
+.product-info-wrapper {
+  display: flex;
+  gap: 10px;
+}
+
+.cart {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 30px;
+  height: 78vh;
+  width: 80vw;
+  margin: 5px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  font-size: 14px;
+}
+
+.cart-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+.cart-item div {
+  flex: 1;
+  text-align: center;
+  color: #555;
+}
+
+.cart-item button {
+  padding: 10px 15px;
+  background-color: rgb(187, 174, 157);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.cart-item button:hover {
+  background-color: rgb(216, 202, 184);
+}
+
+.cart-item button:active {
+  background-color: rgb(215, 202, 184);
+}
+
+.cart-item button:first-of-type {
+  background-color: palevioletred;
+}
+
+.cart-item button:first-of-type:hover {
+  background-color: rgb(220, 141, 167);
+}
+
+.cart-item button:first-of-type:active {
+  background-color: rgb(217, 147, 170);
+}
+
+@media (max-width: 600px) {
+  .cart-item {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+}
+
+.total {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  font-size: 14px;
+  color: #555;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+input {
+  margin: 10px;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.login, .register {
+  padding: 50px;
+}
+

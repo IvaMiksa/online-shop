@@ -5,7 +5,7 @@ const CartItem = ({
   handleDecreaseAmount,
 }) => {
   return (
-    <div>
+    <div className="cart-item">
       <button onClick={() => handleRemoveItem(item.id)}>X</button>
       <div>{item.title}</div>
       <button onClick={() => handleDecreaseAmount(item)}>-</button>
