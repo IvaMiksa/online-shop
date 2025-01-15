@@ -33,6 +33,7 @@ const Shop = () => {
   const handleAddToCart = (product) => {
     if (isAuthenticated) {
       dispatch(addProductToCart(product));
+      toast.success(`${product.title} successfully added to the cart!`);
     } else {
       toast.warn("Please register or log in to add products to your cart!", {
         position: "top-center",
