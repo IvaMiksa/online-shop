@@ -9,7 +9,7 @@ const LoginPage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const [email, setEmail] = useState("iva.miksa+b@gmail.com");
+  const [email, setEmail] = useState("i@gmail.com");
   const [password, setPassword] = useState("Test123!");
   const [rememberMe, setRememberMe] = useState(false);
 
