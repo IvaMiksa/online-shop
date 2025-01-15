@@ -9,8 +9,9 @@ const LoginPage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const [email, setEmail] = useState("iva.miksa+b@gmail.com");
+  const [email, setEmail] = useState("i@gmail.com");
   const [password, setPassword] = useState("Test123!");
+  const [rememberMe, setRememberMe] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,7 +26,9 @@ const LoginPage = () => {
       dispatch(loginUser(accessToken));
 
       // Saving token in LS after login
-      localStorage.setItem("accessToken", accessToken);
+      if (rememberMe) {
+        localStorage.setItem("accessToken", accessToken);
+      }
 
       const from = location.state?.from || { pathname: "/" };
       navigate(from);
@@ -59,8 +62,23 @@ const LoginPage = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">Login</button>
-        <button onClick={handleRegister}>Register</button>
+        <div className="remember-me">
+          <input
+            type="checkbox"
+            id="rememberMe"
+            checked={rememberMe}
+            onChange={(e) => setRememberMe(e.target.checked)}
+          />
+          <label htmlFor="rememberMe">Remember me?</label>
+        </div>
+        <button type="submit" className="login-button">Login</button>
+        <a href="#" className="forgot-password">
+          Forgot Password?
+        </a>
+        <div className="separator">OR</div>
+        <div className="register-link">
+          Don't have an account? <a onClick={handleRegister}>SIGN UP</a>
+        </div>
       </form>
     </div>
   );
