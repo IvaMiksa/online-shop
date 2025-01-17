@@ -6,13 +6,13 @@ const CartItem = ({
 }) => {
   return (
     <div className="cart-item">
-      <button onClick={() => handleRemoveItem(item.id)}>X</button>
-      <div>{item.title}</div>
-      <button onClick={() => handleDecreaseAmount(item)}>-</button>
-      <div>{item.amount}</div>
-      <button onClick={() => handleIncreaseAmount(item.id)}>+</button>
-      <div>{item.price}</div>
-      <div>{(item.price * item.amount).toFixed(2)}</div>
+      <button data-testid="remove-from-cart-btn" onClick={() => handleRemoveItem(item)}>X</button>
+      <div data-testid="product-title">{item.title}</div>
+      <button data-testid="decrease-qty-btn" onClick={() => handleDecreaseAmount(item)}>-</button>
+      <div data-testid="product-cart-qty">{item.amount}</div>
+      <button data-testid="increase-qty-btn" onClick={() => handleIncreaseAmount(item.id)}>+</button>
+      <div data-testid="product-price">{item.price}</div>
+      <div data-testid="subtotal">{(item.price * item.amount).toFixed(2)}</div>
     </div>
   );
 };

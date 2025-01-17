@@ -7,6 +7,7 @@ import {
   removeProductFromCart,
 } from "../../store/productSlice";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -14,8 +15,9 @@ const Cart = () => {
   const totalPrice = useSelector((store) => store.product.totalPrice);
 
   // Removing products from cart
-  const handleRemoveItem = (id) => {
-    dispatch(removeProductFromCart(id));
+  const handleRemoveItem = (item) => {
+    dispatch(removeProductFromCart(item.id));
+    toast.success(`${item.title} successfully removed from the cart!`);
   };
 
   // Increasing amount
@@ -32,7 +34,7 @@ const Cart = () => {
     }
   };
 
-  // Calculate total price 
+  // Calculate total price
   useEffect(() => {
     dispatch(calculateTotalPrice());
   }, [cartItems]);
@@ -52,7 +54,7 @@ const Cart = () => {
           />
         ))}
       </div>
-      <div className="total">Total: {totalPrice.toFixed(2)} CHF</div>
+      <div data-testid="total" className="total">Total: {totalPrice.toFixed(2)} CHF</div>
     </div>
   );
 };
