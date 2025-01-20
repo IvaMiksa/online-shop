@@ -1,4 +1,12 @@
 services:
+  frontend:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.frontend
+    command: npm run dev -- --host
+    ports:
+      - "5173:5173"
+
   playwright-test:
     image: todos-pw-test
     build:
