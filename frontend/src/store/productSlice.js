@@ -7,6 +7,8 @@ export const productSlice = createSlice({
     cart: [],
     totalPrice: 0,
     search: "",
+    currentPage: 1,
+    productsPerPage: 12,
   },
   reducers: {
     getProducts: (state, action) => {
@@ -51,6 +53,12 @@ export const productSlice = createSlice({
     setSearch: (state, action) => {
       state.search = action.payload;
     },
+    setCurrentPage: (state, action) => {
+      state.currentPage = action.payload;
+    },
+    setProductsPerPage: (state, action) => {
+      state.productsPerPage = action.payload;
+    },
   },
 });
 
@@ -62,6 +70,8 @@ export const {
   decreaseAmount,
   calculateTotalPrice,
   setSearch,
+  setCurrentPage,
+  setProductsPerPage,
 } = productSlice.actions;
 
 export default productSlice.reducer;
