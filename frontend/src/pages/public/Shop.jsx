@@ -2,11 +2,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProducts, addProductToCart } from "../../store/productSlice";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
+import ProductSearch from "../../components/ProductSearch";
 
 const Shop = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.products);
   const isAuthenticated = useSelector((store) => store.user.accessToken);
+  const search = useSelector((state) => state.product.search) || "";
 
   // Fetching products on mount
   useEffect(() => {
@@ -42,23 +44,31 @@ const Shop = () => {
     }
   };
 
+  // Search/filter products
+  const filteredProducts = products.filter((product) =>
+    product.title?.toLowerCase().includes(search?.toLowerCase() || "")
+  );
+
   return (
-    <div className="grid">
-      {products && products.length > 0
-        ? products.map((product) => (
-            <div className="product" key={product.id}>
-              <img src={product.images[0]} alt="" width={80} height={80} />
-              <div>{product.title}</div>
-              <div className="product-info-wrapper">
-                <div>{product.price.toFixed(2)} CHF</div>
-                <button onClick={() => handleAddToCart(product)}>
-                  Add to cart
-                </button>
+    <>
+      <ProductSearch />
+      <div className="grid">
+        {filteredProducts && filteredProducts.length > 0
+          ? filteredProducts.map((product) => (
+              <div className="product" key={product.id}>
+                <img src={product.images[0]} alt="" width={80} height={80} />
+                <div>{product.title}</div>
+                <div className="product-info-wrapper">
+                  <div>{product.price.toFixed(2)} CHF</div>
+                  <button onClick={() => handleAddToCart(product)}>
+                    Add to cart
+                  </button>
+                </div>
               </div>
-            </div>
-          ))
-        : "No products available"}
-    </div>
+            ))
+          : "No products available"}
+      </div>
+    </>
   );
 };
 

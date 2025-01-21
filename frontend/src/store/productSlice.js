@@ -6,6 +6,7 @@ export const productSlice = createSlice({
     products: [],
     cart: [],
     totalPrice: 0,
+    search: "",
   },
   reducers: {
     getProducts: (state, action) => {
@@ -47,10 +48,20 @@ export const productSlice = createSlice({
         return totalPrice;
       }, 0);
     },
+    setSearch: (state, action) => {
+      state.search = action.payload;
+    },
   },
 });
 
-export const { getProducts, addProductToCart, removeProductFromCart, increaseAmount, decreaseAmount, calculateTotalPrice } =
-  productSlice.actions;
+export const {
+  getProducts,
+  addProductToCart,
+  removeProductFromCart,
+  increaseAmount,
+  decreaseAmount,
+  calculateTotalPrice,
+  setSearch,
+} = productSlice.actions;
 
 export default productSlice.reducer;
