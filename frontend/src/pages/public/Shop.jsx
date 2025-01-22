@@ -1,14 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
   getProducts,
-  addProductToCart,
   setCurrentPage,
+  addProductToWishlist,
 } from "../../store/productSlice";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import ProductSearch from "../../components/ProductSearch";
+import ProductCard from "../../components/ProductCard";
 
-const Shop = () => {
+const Shop = ({handleAddToCart}) => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.products);
   const isAuthenticated = useSelector((store) => store.user.accessToken);
@@ -38,18 +39,14 @@ const Shop = () => {
     fetchProducts();
   }, [dispatch]);
 
-  // Adding product to cart
-  const handleAddToCart = (product) => {
+
+  // Add product to wishlist
+  const handleAddToWishlist = (product) => {
     if (isAuthenticated) {
-      dispatch(addProductToCart(product));
-      toast.success(`${product.title} successfully added to the cart!`);
-    } else {
-      toast.warn("Please register or log in to add products to your cart!", {
-        position: "top-center",
-        autoClose: 3000,
-      });
+      dispatch(addProductToWishlist(product));
+      toast.success(`${product.title} successfully added to the wishlist!`);
     }
-  };
+  }
 
   // Search/filter products
   const filteredProducts = products.filter((product) =>
@@ -67,7 +64,6 @@ const Shop = () => {
     indexOfFirstTodo,
     indexOfLastTodo
   );
-
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
@@ -87,16 +83,13 @@ const Shop = () => {
       <div className="grid">
         {paginatedProducts && paginatedProducts.length > 0
           ? paginatedProducts.map((product) => (
-              <div className="product" key={product.id}>
-                <img src={product.images[0]} alt="" width={80} height={80} />
-                <div>{product.title}</div>
-                <div className="product-info-wrapper">
-                  <div>{product.price.toFixed(2)} CHF</div>
-                  <button onClick={() => handleAddToCart(product)}>
-                    Add to cart
-                  </button>
-                </div>
-              </div>
+              <ProductCard
+                key={product.id}
+                product={product}
+                handleAddToCart={handleAddToCart}
+                handleAddToWishlist={handleAddToWishlist}
+                isShopProduct={true}
+              />
             ))
           : "No products available"}
 

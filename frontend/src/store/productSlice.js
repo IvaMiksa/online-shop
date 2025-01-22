@@ -9,6 +9,7 @@ export const productSlice = createSlice({
     search: "",
     currentPage: 1,
     productsPerPage: 12,
+    wishlist: [],
   },
   reducers: {
     getProducts: (state, action) => {
@@ -59,6 +60,20 @@ export const productSlice = createSlice({
     setProductsPerPage: (state, action) => {
       state.productsPerPage = action.payload;
     },
+    addProductToWishlist: (state, action) => {
+      const newProduct = action.payload;
+      const index = state.wishlist.findIndex(
+        (item) => item.id === newProduct.id
+      );
+
+      // If product not in wishlist => add it
+      if (index === -1) {
+        state.wishlist = [newProduct, ...state.wishlist];
+      } else {
+        // If product already in wishlist => increment its amount by 1
+        state.wishlist[index].amount++;
+      }
+    },
   },
 });
 
@@ -72,6 +87,7 @@ export const {
   setSearch,
   setCurrentPage,
   setProductsPerPage,
+  addProductToWishlist,
 } = productSlice.actions;
 
 export default productSlice.reducer;

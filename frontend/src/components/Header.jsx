@@ -16,6 +16,7 @@ const Header = () => {
         <NavLink to="/">HOME</NavLink>
         <NavLink to="/shop">SHOP</NavLink>
         <NavLink to="/cart">CART</NavLink>
+        <NavLink to="/wishlist">WISHLIST</NavLink>
         {/*<div>
           <FaCartShopping size={30} />
         </div>*/}

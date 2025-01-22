@@ -9,9 +9,30 @@ import Layout from "../components/Layout";
 import useTokenVerification from "../hooks/useTokenVerification";
 import Shop from "../pages/public/Shop";
 import Cart from "../pages/public/Cart";
+import Wishlist from "../components/Wishlist";
+import { useDispatch, useSelector } from "react-redux";
+import { addProductToCart } from "../store/productSlice";
+import { toast } from "react-toastify";
 
 const Router = () => {
   useTokenVerification();
+
+  const dispatch = useDispatch();
+  const isAuthenticated = useSelector((store) => store.user.accessToken);
+
+
+   // Adding product to cart
+    const handleAddToCart = (product) => {
+      if (isAuthenticated) {
+        dispatch(addProductToCart(product));
+        toast.success(`${product.title} successfully added to the cart!`);
+      } else {
+        toast.warn("Please register or log in to add products to your cart!", {
+          position: "top-center",
+          autoClose: 3000,
+        });
+      }
+    };
 
   return (
     <>
@@ -28,11 +49,13 @@ const Router = () => {
           {/* Public routes */}
           <Route path="/" element={<HomePage />} />
           <Route path="*" element={<NotFound />} />
-          <Route path="/shop" element={<Shop />} />
-          <Route path="/cart" element={<Cart />} />
+          <Route path="/shop" element={<Shop handleAddToCart={handleAddToCart}/>} />
 
           {/* Protected routes */}
-          <Route element={<Protector />}></Route>
+          <Route element={<Protector />}>
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/wishlist" element={<Wishlist handleAddToCart={handleAddToCart} />} />
+          </Route>
         </Route>
       </Routes>
     </>
