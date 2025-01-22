@@ -5,6 +5,8 @@ const ProductCard = ({
   handleAddToCart,
   handleAddToWishlist,
   isShopProduct,
+  isWishlistProduct,
+  handleRemoveFromWishlist,
 }) => {
 
   return (
@@ -19,6 +21,12 @@ const ProductCard = ({
             Add to wishlist
           </button>
         )}
+        {isWishlistProduct && (
+          <button onClick={() => handleRemoveFromWishlist(product)}>
+            Remove from wishlist
+          </button>
+        )}
+        
       </div>
     </div>
   );
