@@ -74,6 +74,10 @@ export const productSlice = createSlice({
         state.wishlist[index].amount++;
       }
     },
+    removeProductFromWishlist: (state, action) => {
+      const id = action.payload;
+      state.wishlist = state.wishlist.filter((product) => product.id !== id);
+    },
   },
 });
 
@@ -88,6 +92,7 @@ export const {
   setCurrentPage,
   setProductsPerPage,
   addProductToWishlist,
+  removeProductFromWishlist,
 } = productSlice.actions;
 
 export default productSlice.reducer;

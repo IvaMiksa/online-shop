@@ -89,6 +89,7 @@ const Shop = ({handleAddToCart}) => {
                 handleAddToCart={handleAddToCart}
                 handleAddToWishlist={handleAddToWishlist}
                 isShopProduct={true}
+                isWishlistProduct={false}
               />
             ))
           : "No products available"}
