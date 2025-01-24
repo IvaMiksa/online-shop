@@ -2,17 +2,14 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getProducts,
   setCurrentPage,
-  addProductToWishlist,
 } from "../../store/productSlice";
 import { useEffect } from "react";
-import { toast } from "react-toastify";
 import ProductSearch from "../../components/ProductSearch";
 import ProductCard from "../../components/ProductCard";
 
-const Shop = ({handleAddToCart}) => {
+const Shop = ({ handleAddToCart, handleAddToWishlist }) => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.products);
-  const isAuthenticated = useSelector((store) => store.user.accessToken);
   const search = useSelector((state) => state.product.search) || "";
   const currentPage = useSelector((store) => store.product.currentPage) || 1;
   const productsPerPage =
@@ -28,6 +25,7 @@ const Shop = ({handleAddToCart}) => {
           const newProductData = data.products.map((product) => ({
             ...product,
             amount: 1,
+            isWishlist: false,
           }));
           console.log(newProductData);
 
@@ -39,14 +37,6 @@ const Shop = ({handleAddToCart}) => {
     fetchProducts();
   }, [dispatch]);
 
-
-  // Add product to wishlist
-  const handleAddToWishlist = (product) => {
-    if (isAuthenticated) {
-      dispatch(addProductToWishlist(product));
-      toast.success(`${product.title} successfully added to the wishlist!`);
-    }
-  }
 
   // Search/filter products
   const filteredProducts = products.filter((product) =>
@@ -78,9 +68,9 @@ const Shop = ({handleAddToCart}) => {
   };
 
   return (
-    <>
+    <div className="m-5">
       <ProductSearch />
-      <div className="grid">
+      <div className="grid grid-cols-4 p-2.5">
         {paginatedProducts && paginatedProducts.length > 0
           ? paginatedProducts.map((product) => (
               <ProductCard
@@ -93,28 +83,27 @@ const Shop = ({handleAddToCart}) => {
               />
             ))
           : "No products available"}
-
-        <div className="flex justify-between items-center mt-4">
-          <button
-            onClick={handlePrevPage}
-            disabled={currentPage === 1}
-            className="px-4 py-2 bg-gray-300 rounded shadow hover:bg-gray-400 disabled:opacity-50"
-          >
-            Previous
-          </button>
-          <span>
-            {currentPage} / {totalPages || 1}
-          </span>
-          <button
-            onClick={handleNextPage}
-            disabled={currentPage === totalPages}
-            className="px-4 py-2 bg-gray-300 rounded shadow hover:bg-gray-400 disabled:opacity-50"
-          >
-            Next
-          </button>
-        </div>
       </div>
-    </>
+      <div className="flex justify-center items-center mt-4">
+        <button
+          onClick={handlePrevPage}
+          disabled={currentPage === 1}
+          className="px-4 py-2 bg-gray-300 rounded shadow hover:bg-gray-400 disabled:opacity-50 mr-2"
+        >
+          Previous
+        </button>
+        <span>
+          {currentPage} / {totalPages || 1}
+        </span>
+        <button
+          onClick={handleNextPage}
+          disabled={currentPage === totalPages}
+          className="px-4 py-2 bg-gray-300 rounded shadow hover:bg-gray-400 disabled:opacity-50 ml-2"
+        >
+          Next
+        </button>
+      </div>
+    </div>
   );
 };
 
