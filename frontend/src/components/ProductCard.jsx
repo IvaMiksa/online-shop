@@ -1,4 +1,8 @@
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCartPlus
+} from "@fortawesome/free-solid-svg-icons";
 
 const ProductCard = ({
   product,
@@ -27,22 +31,28 @@ const ProductCard = ({
         More Details
       </div>
 
-      <img src={product.images[0]} alt="" width={80} height={80} />
-      <div>{product.title}</div>
-      <div className="product-info-wrapper">
-        <div>{product.price.toFixed(2)} CHF</div>
-        <button onClick={() => handleAddToCart(product)}>Add to cart</button>
-        {isShopProduct && (
-          <button onClick={() => handleAddToWishlist(product)}>
-            Add to wishlist
-          </button>
-        )}
-        {isWishlistProduct && (
-          <button onClick={() => handleRemoveFromWishlist(product)}>
-            Remove from wishlist
-          </button>
-        )}
+      <img
+        src={product.images[0]}
+        alt={product.title}
+        className="self-center h-60 w-80 object-contain"
+      />
+
+      <div className="text-center font-medium">{product.title}</div>
+
+      <div className="text-center text-gray-700">
+        {product.price.toFixed(2)} CHF
       </div>
+
+      <button
+        className="mt-auto w-full bg-palevioletred text-white p-2 rounded hover:bg-palevioletredhover z-10"
+        onClick={(e) => {
+          e.stopPropagation();
+          handleAddToCart(product);
+        }}
+      >
+        <FontAwesomeIcon icon={faCartPlus} className="mr-2" />
+        Add to Cart
+      </button>
     </div>
   );
 };
