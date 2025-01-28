@@ -10,6 +10,8 @@ export const productSlice = createSlice({
     currentPage: 1,
     productsPerPage: 12,
     wishlist: [],
+    categoryFilter: "All Categories",
+    brandFilter: "All Brands",
   },
   reducers: {
     getProducts: (state, action) => {
@@ -78,6 +80,12 @@ export const productSlice = createSlice({
       const id = action.payload;
       state.wishlist = state.wishlist.filter((product) => product.id !== id);
     },
+    setCategoryFilter: (state, action) => {
+      state.categoryFilter = action.payload;
+    },
+    setBrandFilter: (state, action) => {
+      state.brandFilter = action.payload;
+    },
   },
 });
 
@@ -93,6 +101,8 @@ export const {
   setProductsPerPage,
   addProductToWishlist,
   removeProductFromWishlist,
+  setBrandFilter,
+  setCategoryFilter,
 } = productSlice.actions;
 
 export default productSlice.reducer;
