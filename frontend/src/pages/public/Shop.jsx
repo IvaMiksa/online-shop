@@ -1,8 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getProducts,
-  setCurrentPage,
-} from "../../store/productSlice";
+import { getProducts, setCurrentPage } from "../../store/productSlice";
 import { useEffect } from "react";
 import ProductSearch from "../../components/ProductSearch";
 import ProductCard from "../../components/ProductCard";
@@ -14,6 +11,9 @@ const Shop = ({ handleAddToCart, handleAddToWishlist }) => {
   const currentPage = useSelector((store) => store.product.currentPage) || 1;
   const productsPerPage =
     useSelector((store) => store.product.productsPerPage) || 10;
+  const categoryFilter =
+    useSelector((store) => store.product.categoryFilter) || "";
+  const brandFilter = useSelector((store) => store.product.brandFilter) || "";
 
   // Fetching products on mount
   useEffect(() => {
@@ -37,11 +37,26 @@ const Shop = ({ handleAddToCart, handleAddToWishlist }) => {
     fetchProducts();
   }, [dispatch]);
 
-
   // Search/filter products
-  const filteredProducts = products.filter((product) =>
-    product.title?.toLowerCase().includes(search?.toLowerCase() || "")
-  );
+  const filteredProducts = products.filter((product) => {
+    
+    const  isSearchMatch = product.title
+      ?.toLowerCase()
+      .includes(search?.toLowerCase() || "");
+
+    const isCategoryMatch =
+      categoryFilter === "" || categoryFilter === "All Categories"
+        ? true
+        : product.category === categoryFilter;
+
+    const isBrandMatch =
+      brandFilter === "" || brandFilter === "All Brands"
+        ? true
+        : product.brand === brandFilter;
+
+    return isSearchMatch && isCategoryMatch && isBrandMatch;
+  });
+
 
   // Pagination
   const totalPages = Math.max(
