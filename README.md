@@ -2,8 +2,8 @@
 
 ## Preview
 
-![alt text](image-1.png)
-![alt text](image.png)
+![alt text](frontend/src/assets/home.png)
+![alt text](frontend/src/assets/shop.png)
 
 ## Tech Stack
 
