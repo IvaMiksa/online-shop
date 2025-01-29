@@ -6,13 +6,13 @@ import { test as setup, expect } from "@playwright/test";
 //const __dirname = path.dirname(__filename);
 
 //const authFile = path.join(__dirname, "../playwright/.auth/user.json");
-const authFile = "frontend/playwright/.auth/user.json";
+const authFile = "../playwright/.auth/user.json";
 
 setup("authenticate", async ({ page, baseURL }) => {
   // Perform authentication steps
   await page.goto(baseURL);
   await page.getByText("LOGIN").click();
-  await page.getByPlaceholder("Email").fill("iva.miksa+b@gmail.com");
+  await page.getByPlaceholder("Email", {exact:true}).fill("iva.miksa+b@gmail.com");
   await page.getByPlaceholder("Password").fill("Test123!");
   await page.getByRole("checkbox", { name: "Remember me?" }).check();
   await page.getByRole("button", { name: "Login" }).click();

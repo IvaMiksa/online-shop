@@ -26,8 +26,9 @@ const ProductCard = ({
       key={product.id}
       onClick={() => redirectToProductDetails(product)}
       className="relative flex flex-col justify-between gap-2.5 p-2.5 m-2.5 rounded-lg bg-antiquewhite group"
+      data-testid="product-card"
     >
-      <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white text-lg font-semibold opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+      <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white text-lg font-semibold opacity-0 group-hover:opacity-100 transition-opacity pointer-events-auto cursor-pointer">
         More Details
       </div>
 
@@ -51,7 +52,7 @@ const ProductCard = ({
         }}
       >
         <FontAwesomeIcon icon={faCartPlus} className="mr-2" />
-        Add to Cart
+        Add to cart
       </button>
     </div>
   );
