@@ -11,17 +11,42 @@ import Shop from "../pages/public/Shop";
 import Cart from "../pages/public/Cart";
 import Wishlist from "../components/Wishlist";
 import { useDispatch, useSelector } from "react-redux";
-import { addProductToCart, addProductToWishlist } from "../store/productSlice";
+import {
+  addProductToCart,
+  addProductToWishlist,
+  getProducts,
+} from "../store/productSlice";
 import { toast } from "react-toastify";
 import ProductDetails from "../components/ProductDetails";
-
+import { useEffect } from "react";
 
 const Router = () => {
   useTokenVerification();
 
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((store) => store.user.accessToken);
- 
+
+  // Fetching products on mount
+  useEffect(() => {
+    const fetchProducts = () => {
+      fetch("https://dummyjson.com/products")
+        .then((response) => response.json())
+        .then((data) => {
+          // Adding amount property to each product
+          const newProductData = data.products.map((product) => ({
+            ...product,
+            amount: 1,
+            isWishlist: false,
+          }));
+          console.log(newProductData);
+
+          dispatch(getProducts(newProductData));
+        }) // console.log(data.products)
+        .catch((error) => console.error(error));
+    };
+
+    fetchProducts();
+  }, [dispatch]);
 
   // Adding product to cart
   const handleAddToCart = (product) => {
@@ -37,12 +62,12 @@ const Router = () => {
   };
 
   // Add product to wishlist
-    const handleAddToWishlist = (product) => {
-      if (isAuthenticated) {
-        dispatch(addProductToWishlist(product.id));
-        toast.success(`${product.title} successfully added to the wishlist!`);
-      }
-    };
+  const handleAddToWishlist = (product) => {
+    if (isAuthenticated) {
+      dispatch(addProductToWishlist(product.id));
+      toast.success(`${product.title} successfully added to the wishlist!`);
+    }
+  };
 
   return (
     <>
@@ -61,7 +86,12 @@ const Router = () => {
           <Route path="*" element={<NotFound />} />
           <Route
             path="/shop"
-            element={<Shop handleAddToCart={handleAddToCart} handleAddToWishlist={handleAddToWishlist} />}
+            element={
+              <Shop
+                handleAddToCart={handleAddToCart}
+                handleAddToWishlist={handleAddToWishlist}
+              />
+            }
           />
           <Route
             path="/product-details/:id"
