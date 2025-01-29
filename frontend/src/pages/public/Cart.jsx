@@ -9,7 +9,7 @@ import {
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import ProgressBar from "../../components/ProgressBar";
+//import ProgressBar from "../../components/ProgressBar";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -79,9 +79,11 @@ const Cart = () => {
             <h2 className="text-lg font-semibold mb-4">Order Summary</h2>
             <div className="flex justify-between text-gray-700 mb-2">
               <span>Subtotal</span>
-              <span>CHF {totalPrice.toFixed(2)}</span>
+              <span data-testid="subtotal">
+                {"CHF " + totalPrice.toFixed(2)}
+              </span>
             </div>
-            <div className="flex justify-between text-gray-700 mb-4">
+            {/*<div className="flex justify-between text-gray-700 mb-4">
               <span>Packaging & Shipping</span>
               <span>CHF 7.90</span>
             </div>
@@ -96,7 +98,7 @@ const Cart = () => {
               <div className="w-full bg-gray-200 h-2 rounded-lg overflow-hidden mt-2">
                 <ProgressBar totalPrice={totalPrice}/>
               </div>
-            </div>
+            </div>*/}
             <div className="mb-4">
               <input
                 type="text"
@@ -109,7 +111,7 @@ const Cart = () => {
             </div>
             <div className="flex justify-between text-lg font-bold text-gray-800">
               <span>Total*</span>
-              <span>CHF {(totalPrice + 7.9).toFixed(2)}</span>
+              <span data-testid="total">CHF {totalPrice.toFixed(2)}</span>
             </div>
             <p className="text-sm text-gray-500 mt-1">
               Includes 8.1% VAT: CHF {(totalPrice * 0.081).toFixed(2)}
