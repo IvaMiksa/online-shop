@@ -22,6 +22,7 @@ const CartItem = ({
         <button
           className="text-gray-500 text-sm mt-2 hover:text-gray-300 underline"
           onClick={() => handleRemoveItem(item)}
+          data-testid="remove-from-cart-btn"
         >
           <FontAwesomeIcon icon={faTimes} className="mr-1" />
           Remove from cart
@@ -32,19 +33,22 @@ const CartItem = ({
         <button
           className="bg-gray-200 text-gray-700 px-3 py-1 rounded hover:bg-gray-300"
           onClick={() => handleDecreaseAmount(item)}
+          data-testid="decrease-qty-btn"
+    
         >
           -
         </button>
-        <span className="mx-2 text-lg">{item.amount}</span>
+        <span className="mx-2 text-lg" data-testid="product-cart-qty">{item.amount}</span>
         <button
           className="bg-gray-200 text-gray-700 px-3 py-1 rounded hover:bg-gray-300"
           onClick={() => handleIncreaseAmount(item.id)}
+          data-testid="increase-qty-btn"
         >
           +
         </button>
       </div>
 
-      <div className="text-gray-700 font-medium ml-4">
+      <div className="text-gray-700 font-medium ml-4" data-testid="product-price">
         CHF {(item.price * item.amount).toFixed(2)}
       </div>
     </div>
