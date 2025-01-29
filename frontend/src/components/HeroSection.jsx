@@ -18,10 +18,12 @@ const HeroSection = () => {
         </div>
         <div className="md:w-1/2 mt-8 md:mt-0 flex justify-center">
           <DotLottieReact
-            src="https://lottie.host/1c9d2eeb-a6d5-4b79-b9e0-f25e61485fdf/V6NUxeoYke.lottie"
+            //src="https://lottie.host/1c9d2eeb-a6d5-4b79-b9e0-f25e61485fdf/V6NUxeoYke.lottie"
+            src="https://lottie.host/e7da432c-4a67-42ad-b770-5f60aefd38f5/CGtbaIxeci.lottie"
             loop
             autoplay
           />
+         
         </div>
       </div>
     </section>
