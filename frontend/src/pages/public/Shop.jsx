@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts, setCurrentPage } from "../../store/productSlice";
-import { useEffect } from "react";
+import { setCurrentPage } from "../../store/productSlice";
 import ProductSearch from "../../components/ProductSearch";
 import ProductCard from "../../components/ProductCard";
 
@@ -14,28 +13,6 @@ const Shop = ({ handleAddToCart, handleAddToWishlist }) => {
   const categoryFilter =
     useSelector((store) => store.product.categoryFilter) || "";
   const brandFilter = useSelector((store) => store.product.brandFilter) || "";
-
-  // Fetching products on mount
-  useEffect(() => {
-    const fetchProducts = () => {
-      fetch("https://dummyjson.com/products")
-        .then((response) => response.json())
-        .then((data) => {
-          // Adding amount property to each product
-          const newProductData = data.products.map((product) => ({
-            ...product,
-            amount: 1,
-            isWishlist: false,
-          }));
-          console.log(newProductData);
-
-          dispatch(getProducts(newProductData));
-        }) // console.log(data.products)
-        .catch((error) => console.error(error));
-    };
-
-    fetchProducts();
-  }, [dispatch]);
 
   // Search/filter products
   const filteredProducts = products.filter((product) => {
