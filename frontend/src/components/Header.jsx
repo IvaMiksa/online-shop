@@ -1,14 +1,16 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../store/userSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const isAuthenticated = useSelector((store) => store.user.accessToken);
 
   const handleLogout = () => {
     dispatch(logoutUser());
     localStorage.removeItem("accessToken");
+    navigate('/login');
   };
 
   return (
