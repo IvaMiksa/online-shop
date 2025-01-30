@@ -39,7 +39,7 @@ function ProductSearch() {
       /*className="w-full flex items-center gap-4"*/ className="w-full flex flex-wrap items-center justify-start gap-4"
     >
    
-      <div /*className="w-1/2"*/ className="w-full sm:w-2/2">
+      <div /*className="w-1/2"*/ className="w-full sm:w-2/2 mx-4">
         <div className="relative w-full">
           <SearchBar
             value={search}
@@ -58,7 +58,7 @@ function ProductSearch() {
         /*className="w-1/2 flex gap-4"*/ className="w-full sm:w-1/2 flex gap-4"
       >
        
-        <div className="w-1/4">
+        <div className="w-1/4 ml-5">
           <select
             id="category"
             value={categoryFilter}

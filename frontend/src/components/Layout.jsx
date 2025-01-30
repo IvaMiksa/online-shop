@@ -8,7 +8,7 @@ const Layout = () => {
 
       <Header className="h-16 flex-none" />
 
-      <main className="flex-grow">
+      <main className="flex flex-grow justify-center p-0">
         <Outlet />
       </main>
 
