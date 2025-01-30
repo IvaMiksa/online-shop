@@ -8,11 +8,11 @@ services:
       - "5173:5173"
 
   playwright-test:
-    image: todos-pw-test
+    image: shop-pw-test
     build:
       context: .
-      dockerfile: ./Dockerfile
-    command: npx playwright test cartPage.spec.ts --project=chromium
+      dockerfile: ./Dockerfile.tests
+    command: npx playwright test
     volumes:
       - ./playwright-report/:/app/playwright-report
       - ./test-results/:/app/test-results
