@@ -62,23 +62,38 @@ export const productSlice = createSlice({
     setProductsPerPage: (state, action) => {
       state.productsPerPage = action.payload;
     },
+
     addProductToWishlist: (state, action) => {
       const newProduct = action.payload;
-      const index = state.wishlist.findIndex(
+
+      // 1.find product in products arr
+      const productIndex = state.products.findIndex(
         (item) => item.id === newProduct.id
       );
 
-      // If product not in wishlist => add it
-      if (index === -1) {
-        state.wishlist = [newProduct, ...state.wishlist];
-      } else {
-        // If product already in wishlist => increment its amount by 1
-        state.wishlist[index].amount++;
+      // 2.if it exists in products arr update isWishlist flag 
+      if (productIndex !== -1) {
+        state.products[productIndex].isWishlist = true;
+
+      // 3.add product to wishlist
+        const wishlistIndex = state.wishlist.findIndex((item) => item.id === newProduct.id);
+        if (wishlistIndex === -1) {
+          state.wishlist = [newProduct, ...state.wishlist];
+        }
+
       }
     },
     removeProductFromWishlist: (state, action) => {
-      const id = action.payload;
-      state.wishlist = state.wishlist.filter((product) => product.id !== id);
+      const productId = action.payload;
+
+      // find product in products arr
+      const productIndex = state.products.findIndex((item) => item.id === productId);
+
+      // if there update isWishlist and remove from wishlist arr
+     if (productIndex !== -1) {
+      state.products[productIndex].isWishlist = false;
+      state.wishlist = state.wishlist.filter((product) => product.id !== productId);
+  }
     },
     setCategoryFilter: (state, action) => {
       state.categoryFilter = action.payload;
