@@ -8,11 +8,10 @@ import {
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-const ProductDetails = ({ handleAddToCart, handleAddToWishlist }) => {
+const ProductDetails = ({ handleAddToCart, handleAddToWishlist, handleRemoveFromWishlist }) => {
   const { id } = useParams();
   const products = useSelector((state) => state.product.products);
-  const product = products.find((product) => product.id === parseInt(id));  
-  const [isWishlist, setIsWishlist] = useState(false);
+  const product = products.find((product) => product.id === parseInt(id));
 
   console.log("id:", id);
   console.log("products fetch:", products);
@@ -20,11 +19,7 @@ const ProductDetails = ({ handleAddToCart, handleAddToWishlist }) => {
   if (!products || products.length === 0) {
     return <div>Loading product details...</div>;
   }
-
-  const toggleWishlist = (product) => {
-    setIsWishlist(!isWishlist);
-    handleAddToWishlist(product.id);
-  };
+  
 
   return (
     <div className="p-6 w-full max-w-4xl mx-auto">
@@ -76,18 +71,25 @@ const ProductDetails = ({ handleAddToCart, handleAddToWishlist }) => {
             </button>
             <button
               className={`bg-palevioletredflex items-center gap-2 px-4 py-2 border rounded ${
-                isWishlist
+                product.isWishlist
                   ? "bg-palevioletred text-white"
                   : "bg-palevioletred text-white"
               } hover:bg-palevioletredhover`}
-              onClick={() => toggleWishlist(product)}
+              onClick={() => {
+                if (product.isWishlist) {
+                  handleRemoveFromWishlist(product);
+                } else {
+                  handleAddToWishlist(product);
+                }
+              }}
             >
               <FontAwesomeIcon
-                icon={isWishlist ? faFilledHeart : faEmptyHeart}
+                icon={product.isWishlist ? faFilledHeart : faEmptyHeart}
                 className="pr-2"
               />
-              {isWishlist ? "Remove from Wishlist" : "Add to Wishlist"}
+              {product.isWishlist ? "Remove from Wishlist" : "Add to Wishlist"}
             </button>
+
           </div>
 
           <div className="text-sm text-gray-500">

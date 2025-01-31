@@ -1,27 +1,25 @@
-import { removeProductFromWishlist } from "../store/productSlice";
 import ProductCard from "./ProductCard";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
-const Wishlist = ({ product, handleAddToCart }) => {
+const Wishlist = ({ product, handleAddToCart, handleRemoveFromWishlist }) => {
   const products = useSelector((state) => state.product.wishlist);
-  const dispatch = useDispatch();
 
-  const handleRemoveFromWishlist = (product) => {
-    dispatch(removeProductFromWishlist(product.id));
-  };
   return (
-    <div className="grid">
+    <div className="grid grid-cols-4 p-2.5">
       {products && products.length > 0
-        ? products.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              handleAddToCart={handleAddToCart}
-              isShopProduct={false}
-              isWishlistProduct={true}
-              handleRemoveFromWishlist={handleRemoveFromWishlist}
-            />
-          ))
+        ? products.map(
+            (product) =>
+              product && (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  handleAddToCart={handleAddToCart}
+                  isShopProduct={false}
+                  isWishlistProduct={true}
+                  handleRemoveFromWishlist={handleRemoveFromWishlist}
+                />
+              )
+          )
         : "No products saved in your wishlist."}
     </div>
   );

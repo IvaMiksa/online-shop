@@ -15,6 +15,7 @@ import {
   addProductToCart,
   addProductToWishlist,
   getProducts,
+  removeProductFromWishlist,
 } from "../store/productSlice";
 import { toast } from "react-toastify";
 import ProductDetails from "../components/ProductDetails";
@@ -64,10 +65,18 @@ const Router = () => {
   // Add product to wishlist
   const handleAddToWishlist = (product) => {
     if (isAuthenticated) {
-      dispatch(addProductToWishlist(product.id));
-      toast.success(`${product.title} successfully added to the wishlist!`);
+      dispatch(addProductToWishlist(product));
+      toast.success(`${product.title} added to the wishlist!`);
     }
   };
+
+  // remove from wishlist
+  const handleRemoveFromWishlist = (product) => {
+    if (isAuthenticated) {
+      dispatch(removeProductFromWishlist(product.id));
+      toast.info(`${product.title} removed from the wishlist!`);
+    }
+    };
 
   return (
     <>
@@ -99,6 +108,7 @@ const Router = () => {
               <ProductDetails
                 handleAddToCart={handleAddToCart}
                 handleAddToWishlist={handleAddToWishlist}
+                handleRemoveFromWishlist={handleRemoveFromWishlist}
               />
             }
           ></Route>
@@ -108,7 +118,7 @@ const Router = () => {
             <Route path="/cart" element={<Cart />} />
             <Route
               path="/wishlist"
-              element={<Wishlist handleAddToCart={handleAddToCart} />}
+              element={<Wishlist handleAddToCart={handleAddToCart} handleRemoveFromWishlist={handleRemoveFromWishlist} />}
             />
           </Route>
         </Route>
